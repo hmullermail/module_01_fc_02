@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
+            
+</head>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 20%;
+    margin-top: 30px;
+}
+
+thead {
+    background-color: #f2a2a2;
+}
+
+tbody{
+    background-color: #d2d2d2;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px 5px;
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+    background-color: #418771;
+    color: #DAEDE7;
+}
+
+td {
+    color: #090909;
+    cursor: pointer;
+}
+
+</style>    
+
+<body>  
+    <h1> Full Cycle Rocks!</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 1; i <= results.length; i++) { %> 
+            <tr>
+                <td><%= i %></td>
+                <td><%= results[i-1].name %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
