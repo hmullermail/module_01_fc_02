@@ -10,8 +10,10 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 WORKDIR /usr/src/nodeapp
 
 COPY package*.json ./
-RUN npm install
-    
-COPY . .
+
+RUN npm install && npm cache clean --force --loglevel=error
+
+COPY views views
+COPY index.js .
 
 EXPOSE 3000

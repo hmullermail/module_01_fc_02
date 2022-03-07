@@ -6,7 +6,7 @@ services:
     image: hmullermail/fc_02_nodeapp
     build: 
       context: nodeapp
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile                    # Use Dockerfile
     container_name: nodeapp
     tty: true
     volumes:

@@ -1,0 +1,57 @@
+version: '3'
+
+services: 
+
+  nodeapp:
+    image: hmullermail/fc_02_nodeapp
+    build: 
+      context: nodeapp
+      dockerfile: Dockerfile.prod               # Use Dockerfile.prod
+    container_name: nodeapp
+    tty: true
+    # volumes:
+    #   - ./nodeapp/:/usr/src/nodeapp
+    ports: 
+      - "3000:3000"
+    networks:
+      - node-network
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    command: node index.js
+    depends_on:
+      - db
+
+
+  proxy:
+    image: hmullermail/fc_02_proxy
+    build:
+      context: proxy
+      dockerfile: Dockerfile
+    container_name: proxy
+    ports:
+      - "8080:80"
+    networks:
+      - node-network
+    depends_on:
+      - nodeapp
+
+
+  db:
+    image: hmullermail/fc_02_db
+    build:
+      context: db
+      dockerfile: Dockerfile
+    command: --innodb-use-native-aio=0
+    container_name : db
+    restart: always
+    tty: true
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - node-network
+
+networks:
+  node-network:
+    driver: bridge
