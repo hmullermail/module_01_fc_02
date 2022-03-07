@@ -3,7 +3,9 @@ version: '3'
 services: 
 
   nodeapp:
-    image: hmullermail/fc_02_nodeapp
+    build: 
+      context: nodeapp
+      dockerfile: Dockerfile.prod
     container_name: nodeapp
     networks:
       - node-network
@@ -14,7 +16,8 @@ services:
 
 
   proxy:
-    image: hmullermail/fc_02_proxy
+    build:
+      context: proxy
     container_name: proxy
     ports:
       - "8080:80"
@@ -25,7 +28,8 @@ services:
 
 
   db:
-    image: hmullermail/fc_02_db
+    build:
+      context: db
     container_name : db
     restart: always
     volumes:
